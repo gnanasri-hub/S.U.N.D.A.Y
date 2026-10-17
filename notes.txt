@@ -1,0 +1,8 @@
+Day 1
+
+- Installed Python
+- Built voice.py
+- Built listen.py
+- Fixed microphone issue
+- Switched from listen() to record()
+- Found pyttsx3 second-message bug
