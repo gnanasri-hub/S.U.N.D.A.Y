@@ -1,19 +1,23 @@
-# pyrefly: ignore[missing-import]
-import pyttsx3
+import asyncio
+import edge_tts
+import os
 
-engine = pyttsx3.init()
-
-engine.setProperty("rate", 180)
+VOICE = "en-US-AriaNeural"
 
 def speak(text):
-    print("Jarvis:", text)
 
-    print("Before say")
+    print("Sunday:", text)
 
-    engine.say(text)
+    async def generate():
 
-    print("After say")
+        communicate = edge_tts.Communicate(
+            text,
+            VOICE
+        )
 
-    engine.runAndWait()
+        await communicate.save("voice.mp3")
 
-    print("After runAndWait")
+    asyncio.run(generate())
+
+    # pyrefly: ignore[deprecated]
+    os.system("start voice.mp3")
