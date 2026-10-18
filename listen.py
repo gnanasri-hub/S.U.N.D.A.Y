@@ -11,11 +11,11 @@ def listen():
     with sr.Microphone(device_index = 1) as source:
 
 
-        r.adjust_for_ambient_noise(source, duration=5)
+       # r.adjust_for_ambient_noise(source, duration=1)
         print("Speak Now")
         audio = r.record(
             source,
-            duration=5
+            duration=2
         )
         print("Recording finished")
 

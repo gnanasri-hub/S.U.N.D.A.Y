@@ -1,6 +1,6 @@
-from voice import speak
 from listen import listen
-from commands import execute
+from voice import speak
+from brain import think
 
 speak("Hello ma'am. Sunday is online.")
 
@@ -11,13 +11,14 @@ while True:
     if command is None:
         continue
 
-    print("Command received:", command)
+    print("You:", command)
 
-    response = execute(command)
-
-    if response:
-        speak(response)
-
-    if "stop" in command:
+    if command.lower() == "stop":
         speak("Goodbye ma'am")
         break
+
+    response = think(command)
+
+    print("Sunday:", response)
+
+    speak(response)

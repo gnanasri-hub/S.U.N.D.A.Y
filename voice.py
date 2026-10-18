@@ -1,6 +1,9 @@
 import asyncio
 import edge_tts
+# pyrefly: ignore[missing-import]
+from playsound3 import playsound
 import os
+
 
 VOICE = "en-US-AriaNeural"
 
@@ -19,5 +22,7 @@ def speak(text):
 
     asyncio.run(generate())
 
-    # pyrefly: ignore[deprecated]
-    os.system("start voice.mp3")
+    playsound("voice.mp3")
+
+    if os.path.exists("voice.mp3"):
+        os.remove("voice.mp3")
