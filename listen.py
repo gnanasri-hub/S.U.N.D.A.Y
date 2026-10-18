@@ -3,7 +3,7 @@ import speech_recognition as sr
 
 r = sr.Recognizer()
 
-r.energy_threshold = 1000
+r.energy_threshold = 300
 r.dynamic_energy_threshold = True
 
 def listen():
@@ -12,7 +12,13 @@ def listen():
 
 
        # r.adjust_for_ambient_noise(source, duration=1)
-        print("Speak Now")
+        print("Get Ready...")
+
+        import time
+        time.sleep(2)
+
+        print("🎤 SPEAK NOW")
+
         audio = r.record(
             source,
             duration=4

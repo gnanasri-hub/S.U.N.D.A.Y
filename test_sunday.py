@@ -1,3 +1,4 @@
-from voice import speak
+import speech_recognition as sr
 
-speak("Hello ma'am. Sunday is online.")
+for i, name in enumerate(sr.Microphone.list_microphone_names()):
+    print(i, name)
