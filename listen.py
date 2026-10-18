@@ -15,9 +15,10 @@ def listen():
         print("Speak Now")
         audio = r.record(
             source,
-            duration=2
+            duration=4
         )
         print("Recording finished")
+
 
     try:
 
