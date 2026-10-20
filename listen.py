@@ -1,42 +1,51 @@
-# pyrefly: ignore[missing-import]
-import speech_recognition as sr
+import sounddevice as sd
+import soundfile as sf
 
-r = sr.Recognizer()
+from faster_whisper import WhisperModel
 
-r.energy_threshold = 300
-r.dynamic_energy_threshold = True
+model = WhisperModel(
+    "medium",
+    device="cpu"
+)
 
 def listen():
 
-    with sr.Microphone(device_index = 1) as source:
+    duration = 4
+    sample_rate = 16000
 
+    print("🎤 Speak now...")
 
-       # r.adjust_for_ambient_noise(source, duration=1)
-        print("Get Ready...")
+    audio = sd.rec(
+        int(duration * sample_rate),
+        samplerate=sample_rate,
+        channels=1
+    )
 
-        import time
-        time.sleep(2)
+    sd.wait()
 
-        print("🎤 SPEAK NOW")
+    sf.write(
+        "voice.wav",
+        audio,
+        sample_rate
+    )
 
-        audio = r.record(
-            source,
-            duration=4
-        )
-        print("Recording finished")
+    segments, info = model.transcribe(
+        "voice.wav",
+        language="en",
+        beam_size=5
+    )
 
+    text = ""
 
-    try:
+    for segment in segments:
+        text += segment.text
 
-        text = r.recognize_google(
-            audio,
-            language="en-US"
-        )
+    text = text.strip()
+
+    if text:
 
         print("🗣️ You:", text)
 
         return text.lower()
 
-    except Exception as e:
-        print("Error:", type(e).__name__)
-        return None
+    return None

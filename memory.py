@@ -1,14 +1,46 @@
-conversation_history = []
+import json
+import os
+
+MEMORY_FILE = "memory.json"
+
+def load_memory():
+
+    if not os.path.exists(MEMORY_FILE):
+        return []
+
+    with open(
+        MEMORY_FILE,
+        "r",
+        encoding="utf-8"
+    ) as file:
+
+        return json.load(file)
+
+def save_memory(memory):
+
+    with open(
+        MEMORY_FILE,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        json.dump(
+            memory,
+            file,
+            indent=4
+        )
 
 def remember(role, content):
 
-    conversation_history.append(
-        {
-            "role": role,
-            "content": content
-        }
-    )
+    memory = load_memory()
+
+    memory.append({
+        "role": role,
+        "content": content
+    })
+
+    save_memory(memory)
 
 def get_memory():
 
-    return conversation_history[-10:]
+    return load_memory()[-20:]

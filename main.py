@@ -8,6 +8,8 @@ speak("Sunday is online.")
 while True:
 
     command = listen()
+    if not command:
+        continue
     print("RAW COMMAND:", command)
 
     if command is None:
@@ -19,13 +21,13 @@ while True:
         speak("Goodbye ma'am")
         break
 
-    if not is_awake(command):
-        continue
+    # if not is_awake(command):
+    #     continue
 
-    command = command.replace(
-        "sunday",
-        ""
-    ).strip()
+    # command = command.replace(
+    #     "sunday",
+    #     ""
+    # ).strip()
 
     response = think(command)
 
