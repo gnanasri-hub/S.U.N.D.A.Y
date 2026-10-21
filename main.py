@@ -2,6 +2,8 @@ from listen import listen
 from voice import speak
 from brain import think
 from wakeword import is_awake
+from tools import execute
+
 
 speak("Sunday is online.")
 
@@ -28,9 +30,18 @@ while True:
     #     "sunday",
     #     ""
     # ).strip()
+    if command in ["hello", "hi"]:
+        speak("Hello ma'am.")
+        continue
+    tool_response = execute(command)
+
+    if tool_response:
+
+        speak(tool_response)
+
+        continue
 
     response = think(command)
 
-    print("Sunday:", response)
 
     speak(response)
